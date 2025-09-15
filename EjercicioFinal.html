@@ -1,11 +1,51 @@
 <!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <title>Guía 3 – Progra Web</title>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ejercicio final — versión con nombres vagos</title>
+  <link rel="stylesheet" href="stylesF.css" />
+</head>
+<body>
+  <main class="pagina">
+    <article class="tarjeta aparecer" aria-labelledby="titulo">
+      <header class="arriba">
+        <h1 id="titulo">Pago de colegiatura</h1>
+        <p class="nota">Universidad Centroamericana José Simeón Cañas</p>
+      </header>
 
-  <body>
-  </body>
+      <div class="lado">
+        <img
+          src="https://img.freepik.com/psd-gratis/ilustracion-dinero-aislada_23-2151568514.jpg?semt=ais_hybrid&w=160&q=80"
+          alt="Dibujo de dinero"
+          width="160" height="160" loading="lazy"
+        />
+      </div>
+
+      <section class="medio">
+        <ul class="listita">
+          <li>Matrícula del ciclo</li>
+          <li>Recargos aplicados</li>
+          <li>Descuentos vigentes</li>
+        </ul>
+
+        <div class="plata">
+          <span class="plata__texto">Total</span>
+          <span class="plata__monto">$ 99.95</span>
+        </div>
+      </section>
+
+      <footer class="abajo">
+        <a class="boton boton--principal" href="https://uca.edu.sv/" target="_blank" rel="noopener">
+          Pagar
+        </a>
+        <a class="boton boton--suave" href="#detalle">Ver detalle</a>
+      </footer>
+    </article>
+  </main>
+
+  <section id="detalle" class="solo-lectores" aria-hidden="true">
+    Detallepara el ejemplo.
+  </section>
+</body>
 </html>

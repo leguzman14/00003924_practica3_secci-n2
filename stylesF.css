@@ -1,4 +1,183 @@
-:root {
-  --blue: #1e90ff;
-  --white: #ffffff;
+/*Variables y base usando en el gradiente de los botones */
+:root{
+  --azul:  #1e90ff;
+  --rosado:#14bf17;
+  --verde: #22c55e;
+  --fondo: #0b1020;
+  --panel: #111833;
+  --letras:#e7e9ee;
+  --clarito:#9aa3b2;
+  --blanco:#ffffff;
+  --redondeo:16px;
+  --sombra:0 10px 30px rgba(0,0,0,.35);
+}
+
+*{ box-sizing: border-box; }
+html,body{ height:100%; }
+body{
+  margin:0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans";
+  color:var(--letras);
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(225,42,251,.15), transparent 60%),
+    radial-gradient(1000px 700px at 100% 0%, rgba(30,144,255,.15), transparent 60%),
+    var(--fondo);
+  line-height:1.4;
+}
+
+/*Solo lectores de pantall/
+
+/* Flexbox para centrar*/
+.pagina{
+  min-height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:2rem;
+}
+
+/*  (Grid por áreas)*/
+.tarjeta{
+  width:min(680px, 100%);
+  background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02)), var(--panel);
+  border-radius:var(--redondeo);
+  box-shadow:var(--sombra);
+  border:1px solid rgba(255,255,255,.06);
+  position:relative;
+  overflow:clip;
+
+  display:grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto auto auto;
+  grid-template-areas:
+    "arriba lado"
+    "medio  lado"
+    "abajo  abajo";
+  gap:1rem 1.25rem;
+  padding:1.25rem;
+}
+
+/* Brillito giratorio medio decorativo */
+.tarjeta::after{
+  content:"";
+  position:absolute;
+  inset:-40%;
+  background: conic-gradient(from 0turn, transparent 0 85%, rgba(255,255,255,.12) 92%, transparent 100%);
+  transform: rotate(12deg);
+  pointer-events:none;
+  animation:girar 12s linear infinite;
+  opacity:.35;
+}
+@keyframes girar{ to{ transform: rotate(372deg); } }
+
+/* Aparece suave al cargar 'Sacado de youtube xd'*/
+.aparecer{
+  --tarde:.6s;
+  animation: entrar .8s var(--tarde) cubic-bezier(.2,.65,.2,1) both;
+}
+@keyframes entrar{
+  from{ transform: translateY(24px) scale(.98); opacity:0; }
+  to  { transform: translateY(0)   scale(1);   opacity:1; }
+}
+/* Accesibilidad */
+@media (prefers-reduced-motion: reduce){
+  .tarjeta::after{ animation:none; }
+  .aparecer{ animation:none; }
+}
+
+/* Áreas del grid */
+.arriba{ grid-area:arriba; }
+.lado  { grid-area:lado; display:grid; place-items:center; padding:.75rem; }
+.medio { grid-area:medio; }
+.abajo { grid-area:abajo; display:flex; gap:.75rem; flex-wrap:wrap; }
+
+/* Texto */
+h1{ margin:0 0 .25rem; font-size:clamp(1.25rem, 1rem + 1vw, 1.6rem); }
+.nota{ margin:0; color:var(--clarito); font-size:.95rem; }
+
+/* Imagen */
+.lado img{
+  width:160px; height:160px; object-fit:contain;
+  filter: drop-shadow(0 12px 20px rgba(0,0,0,.35));
+  transform: translateZ(0);
+}
+
+/* Lista con puntitos verdes */
+.listita{
+  padding:0; margin:0 0 .75rem; list-style:none;
+  display:grid; gap:.5rem;
+}
+.listita li{
+  padding-left:1.35rem; position:relative;
+}
+.listita li::before{
+  content:""; position:absolute; left:0; top:.4rem;
+  width:.8rem; height:.8rem;
+  background: radial-gradient(circle at 50% 50%, var(--verde) 0 50%, transparent 52%);
+}
+
+/* Monto grande con degradado */
+.plata{ display:flex; align-items:baseline; gap:.5rem; }
+.plata__texto{ color:var(--clarito); }
+.plata__monto{
+  font-weight:700; letter-spacing:.4px;
+  font-size:clamp(1.15rem, 1rem + .7vw, 1.6rem);
+  background: linear-gradient(90deg, var(--azul), var(--rosado));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+
+/* Botones “vagos” */
+.boton{
+  --fondo-boton: rgba(255,255,255,.06);
+  --borde-boton: rgba(255,255,255,.12);
+  --letra-boton: var(--blanco);
+
+  display:inline-flex; align-items:center; justify-content:center;
+  padding:.8rem 1rem; gap:.5rem;
+  border-radius: calc(var(--redondeo) - 6px);
+  border:1px solid var(--borde-boton);
+  background:var(--fondo-boton);
+  color:var(--letra-boton);
+  text-decoration:none;
+  cursor:pointer; /* cambia el cursor como pide la guía */
+  transition: transform .15s ease, background-color .2s ease, border-color .2s ease, box-shadow .2s ease;
+  position:relative; isolation:isolate;
+}
+.boton:focus-visible{ outline:0; box-shadow:0 0 0 3px color-mix(in oklab, var(--azul) 55%, transparent); }
+.boton:hover{ transform: translateY(-1px); }
+.boton:active{ transform: translateY(0); }
+
+.boton--principal{
+  --fondo-boton: linear-gradient(180deg,
+    color-mix(in oklab, var(--azul) 80%, #ffffff 0%),
+    color-mix(in oklab, var(--rosado) 50%, var(--azul) 50%)
+  );
+  --borde-boton: color-mix(in oklab, var(--azul) 70%, #000 20%);
+}
+.boton--principal:hover{
+  --fondo-boton: linear-gradient(180deg,
+    color-mix(in oklab, var(--azul) 92%, #ffffff 0%),
+    color-mix(in oklab, var(--rosado) 60%, var(--azul) 60%)
+  );
+  filter: drop-shadow(0 6px 16px rgba(30,144,255,.35));
+}
+
+.boton--suave{
+  --fondo-boton: rgba(255,255,255,.03);
+  --borde-boton: rgba(255,255,255,.12);
+}
+
+/* Responsivo: una columna */
+@media (max-width: 720px){
+  .tarjeta{
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "arriba"
+      "lado"
+      "medio"
+      "abajo";
+    text-align:center;
+  }
+  .listita li{ text-align:left; margin-inline:auto; max-width:36ch; }
+  .abajo{ justify-content:center; }
 }
